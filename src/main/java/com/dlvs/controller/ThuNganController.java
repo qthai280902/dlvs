@@ -23,6 +23,8 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TextInputDialog;
+import java.util.Optional;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -75,7 +77,12 @@ public class ThuNganController {
     @FXML
     private Label lblDoanhSoCaNhan;
     @FXML
+    private Label lblTongVeTra;
+    @FXML
     private Label lblTongSoHoaDon;
+
+    @FXML
+    private Button btnTraVeE;
 
     @FXML
     private TableView<HoaDon> bangHoaDonCaNhan;
@@ -114,6 +121,9 @@ public class ThuNganController {
         if (UserSession.getInstance() != null) {
             lblTenNhanVien.setText("Xin chào, " + UserSession.getInstance().getFullName() + "!");
         }
+        
+        // Cập nhật số vé trả ngay khi mở form
+        updateTongVeTra();
 
         colMaHoaDonCaNhan.setCellValueFactory(new PropertyValueFactory<>("maHoaDon"));
         colNgayTaoCaNhan.setCellValueFactory(new PropertyValueFactory<>("ngayTao"));
@@ -329,6 +339,49 @@ public class ThuNganController {
         double doanhThu = DatabaseHelper.getDoanhThuNhanVienHomNay(tenNhanVien);
         lblDoanhSoCaNhan.setText("Doanh số bạn đã bán hôm nay: " + currencyFormat.format(doanhThu) + " VNĐ");
         lblTongSoHoaDon.setText("Tổng số hóa đơn: " + danhSach.size());
+        
+        // Cập nhật nhãn vé trả khi refresh
+        updateTongVeTra();
+    }
+
+    @FXML
+    public void handleTraVeE(ActionEvent event) {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Trả Vé Ế");
+        dialog.setHeaderText("Quản lý trả vé ế. Xin lưu ý hệ thống sẽ lưu dấu vé trả này theo Tên của bạn!");
+        dialog.setContentText("Nhập chính xác số lượng vé ế cần trả lại:");
+
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            String input = result.get().trim();
+            if (input.isEmpty()) return;
+            try {
+                int soLuong = Integer.parseInt(input);
+                if (soLuong <= 0) {
+                    throw new NumberFormatException();
+                }
+                String nhanVienId = UserSession.getInstance() != null ? UserSession.getInstance().getUsername() : "UNKNOWN";
+                boolean success = DatabaseHelper.insertVeTra(soLuong, nhanVienId);
+                if (success) {
+                    Alert alert = new Alert(AlertType.INFORMATION, "Đã ghi nhận kho xử lý trả " + soLuong + " vé ế thành công!");
+                    alert.showAndWait();
+                    updateTongVeTra();
+                } else {
+                    Alert alert = new Alert(AlertType.ERROR, "Lỗi khi lưu dữ liệu vé trả.");
+                    alert.showAndWait();
+                }
+            } catch (NumberFormatException e) {
+                Alert alert = new Alert(AlertType.ERROR, "Số lượng vé không hợp lệ! Vui lòng nhập số đếm nguyên dương.");
+                alert.showAndWait();
+            }
+        }
+    }
+
+    private void updateTongVeTra() {
+        if (UserSession.getInstance() != null && lblTongVeTra != null) {
+            int tongVeTra = DatabaseHelper.getTongSoVeTraHomNay(UserSession.getInstance().getUsername());
+            lblTongVeTra.setText("Tổng số vé trả hôm nay: " + tongVeTra);
+        }
     }
 
     @FXML

@@ -102,6 +102,15 @@ public class DatabaseHelper {
                 );
                 """;
 
+        String sqlVeTra = """
+                CREATE TABLE IF NOT EXISTS VeTra (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    ngayTra TEXT,
+                    soLuongVe INTEGER,
+                    nhanVienThucHien TEXT
+                );
+                """;
+
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement()) {
 
@@ -110,6 +119,7 @@ public class DatabaseHelper {
             stmt.execute(sqlHoaDon);
             stmt.execute(sqlChiTietHoaDon);
             stmt.execute(sqlTaiKhoan);
+            stmt.execute(sqlVeTra);
 
             // Kiểm tra bảng TaiKhoan có rỗng không
             ResultSet rs = stmt.executeQuery("SELECT COUNT(*) AS count FROM TaiKhoan");
@@ -353,5 +363,64 @@ public class DatabaseHelper {
             System.err.println("Lỗi delete tài khoản: " + e.getMessage());
             return false;
         }
+    }
+
+    /**
+     * Thêm vé ế (trả vé) vào cơ sở dữ liệu.
+     */
+    public static boolean insertVeTra(int soLuongVe, String nhanVienThucHien) {
+        String ngayTra = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String sql = "INSERT INTO VeTra (ngayTra, soLuongVe, nhanVienThucHien) VALUES (?, ?, ?)";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, ngayTra);
+            pstmt.setInt(2, soLuongVe);
+            pstmt.setString(3, nhanVienThucHien);
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("Lỗi insert vé trả: " + e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Lấy tổng số vé đã trả của một nhân viên trong ngày hôm nay.
+     */
+    public static int getTongSoVeTraHomNay(String tenNhanVien) {
+        int tongVe = 0;
+        String today = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String sql = "SELECT SUM(soLuongVe) AS total FROM VeTra WHERE ngayTra = ? AND nhanVienThucHien = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, today);
+            pstmt.setString(2, tenNhanVien);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                tongVe = rs.getInt("total");
+            }
+        } catch (SQLException e) {
+            System.err.println("Lỗi khi tính số vé trả cá nhân: " + e.getMessage());
+        }
+        return tongVe;
+    }
+
+    /**
+     * Lấy tổng số vé đã trả của TOÀN HỆ THỐNG trong ngày hôm nay.
+     */
+    public static int getTongVeTraToanHeThongHomNay() {
+        int tongVe = 0;
+        String today = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String sql = "SELECT SUM(soLuongVe) AS total FROM VeTra WHERE ngayTra = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, today);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                tongVe = rs.getInt("total");
+            }
+        } catch (SQLException e) {
+            System.err.println("Lỗi khi tính tổng số vé trả hệ thống: " + e.getMessage());
+        }
+        return tongVe;
     }
 }
