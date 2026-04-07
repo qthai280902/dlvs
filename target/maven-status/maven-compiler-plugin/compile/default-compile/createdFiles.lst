@@ -2,15 +2,10 @@ com\dlvs\controller\ThuNganController.class
 com\dlvs\Launcher.class
 com\dlvs\controller\DashboardController.class
 com\dlvs\controller\DangNhapController.class
-com\dlvs\controller\DashboardController$1.class
 com\dlvs\model\VeBan.class
 com\dlvs\model\TaiKhoan.class
 com\dlvs\dao\DatabaseHelper.class
 com\dlvs\model\UserSession.class
 com\dlvs\util\NumberToWords.class
-com\dlvs\controller\DashboardController$2.class
 com\dlvs\App.class
-com\dlvs\controller\DashboardController$4.class
-com\dlvs\controller\ThuNganController$1.class
-com\dlvs\controller\DashboardController$3.class
 com\dlvs\model\HoaDon.class

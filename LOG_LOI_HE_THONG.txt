@@ -1,0 +1,30 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------------< com.dlvs:dlvs >----------------------------
+[INFO] Building dlvs 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[WARNING] 6 problems were encountered while building the effective model for org.openjfx:javafx-controls:jar:21.0.2 during dependency collection step for project (use -X to see details)
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ dlvs ---
+[INFO] Deleting C:\Users\thaib\Downloads\dlvs\target
+[INFO] 
+[INFO] >>> javafx:0.0.8:run (default-cli) > process-classes @ dlvs >>>
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ dlvs ---
+[INFO] Copying 5 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ dlvs ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 11 source files with javac [debug release 17] to target\classes
+[INFO] 
+[INFO] <<< javafx:0.0.8:run (default-cli) < process-classes @ dlvs <<<
+[INFO] 
+[INFO] 
+[INFO] --- javafx:0.0.8:run (default-cli) @ dlvs ---
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  24.485 s
+[INFO] Finished at: 2026-04-08T06:45:30+07:00
+[INFO] ------------------------------------------------------------------------
