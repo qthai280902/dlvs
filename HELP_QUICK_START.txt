@@ -1,0 +1,27 @@
+========================================================
+    HUONG DAN NHANH - DAI LY VE SO LOC PHAT TAI (V 1.0)
+========================================================
+
+Cam on quy khach da su dung phan mem LPT! Ung dung khong yeu cau cai dat, chi can mo len va dung.
+
+1. CACH SU DUNG (CHI MAT 30 GIAY):
+----------------------------------
+> Buoc 1: Mo file LocPhatTai.exe (co bieu tuong mau xang).
+> Buoc 2: Dang nhap bang tai khoan. Neu chua co, dung Mac dinh la: Quan tri (admin / admin). Nhan vien (nhanvien / 123456).
+> Buoc 3: Vao man hinh ban hang -> go Ten dai ve -> Diền so luong -> Nhan ENTER (Hoac nut Them).
+> Buoc 4: Nhap so "Tien khach dua" vao o rong -> Phan mem tu bao So tien phai thoi lai -> Nhan THANH TOAN de in hoa don!
+
+
+2. THAY DOI QUYEN QUAN TRI:
+----------------------------------
+Dang nhap tai khoan "admin" -> Vao Tab "Quan ly Nhan Su" de Thêm, Sửa, Xác Lập Mật Khẩu cho bat ky ai trong dai ly ve so cua ban. Mo Tab "Thong ke" de xem tong tien dang ton va xem tuong tan tung Hóa đon da ban ra.
+
+
+3. HO TRO KY THUAT 24/7:
+----------------------------------
+Neu xay ra bat cu loi giam sat hoac mat du lieu, dung xoa thu muc ban dang mo! Hay goi lap tuc den:
+📞 Hotline Kỹ Thuật: 0785423259 - 0976814652
+(Chung toi ho tro ban mien phi)
+
+Chuc ban mua may ban dat! Loc Phat Tai - Tai Phat Loc!
+========================================================
